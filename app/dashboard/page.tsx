@@ -31,6 +31,9 @@ export default async function DashboardRouter() {
 
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+  if (!user) {
+    return <p>No estás autenticado.</p>;
+  }
 
   const data = await getData(user.id);
 
