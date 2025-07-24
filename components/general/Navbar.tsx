@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
 import {
@@ -7,9 +6,11 @@ import {
   LoginLink,
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
+// import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
 export function Navbar() {
+  // const { getUser } = getKindeServerSession();
   const { getUser } = useKindeBrowserClient();
   const user = getUser();
 
@@ -23,11 +24,14 @@ export function Navbar() {
         </Link>
 
         <div className="hidden sm:flex items-center gap-6">
-          <Link className="text-sm font-medium hover:text-blue-500" href="/">
+          <Link
+            className="text-sm font-medium hover:text-blue-500 transition-colors"
+            href="/"
+          >
             Home
           </Link>
           <Link
-            className="text-sm font-medium hover:text-blue-500"
+            className="text-sm font-medium hover:text-blue-500 transition-colors"
             href="/dashboard"
           >
             Dashboard
@@ -37,7 +41,7 @@ export function Navbar() {
 
       {user ? (
         <div className="flex items-center gap-4">
-          <p>{user.given_name ?? user.email}</p>
+          <p>{user.given_name}</p>
           <LogoutLink className={buttonVariants({ variant: "secondary" })}>
             Logout
           </LogoutLink>
